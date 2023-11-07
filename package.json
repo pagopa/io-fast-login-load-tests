@@ -5,11 +5,30 @@
   "main": "/dist/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "k6 run dist/index.js",
-    "build": "tsc"
+    "start": "dotenv -e .env k6 run dist/index.js",
+    "webpack": "NODE_OPTIONS=--openssl-legacy-provider webpack --config webpack.config.js --mode=production"
   },
   "devDependencies": {
-    "@types/k6": "^0.47.1",
-    "typescript": "^5.2.2"
+    "@babel/core": "7.13.16",
+    "@babel/plugin-proposal-class-properties": "7.13.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.13.8",
+    "@babel/preset-env": "7.13.15",
+    "@babel/preset-typescript": "7.13.0",
+    "@types/k6": "~0.45.0",
+    "@types/webpack": "5.28.0",
+    "babel-loader": "8.2.2",
+    "clean-webpack-plugin": "4.0.0-alpha.0",
+    "copy-webpack-plugin": "^9.0.1",
+    "dotenv": "^8.2.0",
+    "dotenv-cli": "^7.3.0",
+    "shx": "^0.3.4",
+    "typescript": "4.2.4",
+    "webpack": "5.35.1",
+    "webpack-cli": "4.6.0",
+    "webpack-glob-entries": "^1.0.1"
+  },
+  "dependencies": {
+    "fp-ts": "^2.16.1",
+    "io-ts": "^2.2.20"
   }
 }
