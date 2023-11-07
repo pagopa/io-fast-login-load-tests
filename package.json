@@ -1,0 +1,15 @@
+{
+  "name": "io-fast-login-load-tests",
+  "version": "1.0.0",
+  "description": "Load test for Fast Login feature",
+  "main": "/dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "k6 run dist/index.js",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/k6": "^0.47.1",
+    "typescript": "^5.2.2"
+  }
+}
