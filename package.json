@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "start": "dotenv -e .env k6 run dist/index.js",
-    "webpack": "NODE_OPTIONS=--openssl-legacy-provider webpack --config webpack.config.js --mode=production"
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --config webpack.config.js --mode=production",
+    "generate": "npm-run-all generate:*",
+    "generate:definitions-internal": "rimraf ./src/generated/definitions/internal && shx mkdir -p ./src/generated/definitions/internal && gen-api-models --api-spec https://raw.githubusercontent.com/pagopa/io-functions-fast-login/main/api/internal.yaml --no-strict --out-dir ./src/generated/definitions/internal "
   },
   "devDependencies": {
     "@babel/core": "7.13.16",
@@ -14,6 +16,7 @@
     "@babel/plugin-proposal-object-rest-spread": "7.13.8",
     "@babel/preset-env": "7.13.15",
     "@babel/preset-typescript": "7.13.0",
+    "@pagopa/openapi-codegen-ts": "^13.1.0",
     "@types/k6": "~0.45.0",
     "@types/webpack": "5.28.0",
     "babel-loader": "8.2.2",
@@ -21,6 +24,7 @@
     "copy-webpack-plugin": "^9.0.1",
     "dotenv": "^8.2.0",
     "dotenv-cli": "^7.3.0",
+    "npm-run-all": "^4.1.5",
     "shx": "^0.3.4",
     "typescript": "4.2.4",
     "webpack": "5.35.1",
@@ -28,6 +32,7 @@
     "webpack-glob-entries": "^1.0.1"
   },
   "dependencies": {
+    "@pagopa/ts-commons": "^12.3.0",
     "fp-ts": "^2.16.1",
     "io-ts": "^2.2.20"
   }

@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     libraryTarget: 'commonjs',
-    filename: '[name].js',
+    filename: '[name].js'
   },
   resolve: {
     extensions: ['.ts', '.js'],
@@ -23,7 +23,7 @@ module.exports = {
       },
     ],
   },
-  target: 'web',
+  target: 'es2022',
   externals: /^(k6|https?\:\/\/)(\/.*)?/,
   // Generate map files for compiled scripts
   devtool: "source-map",
