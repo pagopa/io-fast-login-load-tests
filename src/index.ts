@@ -4,6 +4,8 @@ import { check, fail } from "k6";
 import { pipe } from "fp-ts/lib/function";
 import { GenerateNonceResponse } from "./generated/definitions/internal/GenerateNonceResponse";
 import * as E from "fp-ts/Either";
+//@ts-ignore
+import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 
 export const options = {
   discardResponseBodies: true,
@@ -43,7 +45,7 @@ export default function() {
     undefined
   );
   check(response, {
-    "GET returns 200": (r) => r.status === 200,
+    "GET Nonce returns 200": (r) => r.status === 200,
   });
   pipe(
     response.body,
@@ -54,4 +56,10 @@ export default function() {
   // Build sign request (local)
   // Refresh
   // Get Session
+}
+
+export function handleSummary(data: unknown) {
+  return {
+    "./out/summary.html": htmlReport(data),
+  };
 }

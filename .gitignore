@@ -26,6 +26,7 @@ local.settings.json
 
 node_modules
 dist
+out
 
 azure-functions-core-tools
 

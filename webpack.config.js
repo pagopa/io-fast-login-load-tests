@@ -24,7 +24,7 @@ module.exports = {
     ],
   },
   target: 'es2022',
-  externals: /^(k6|https?\:\/\/)(\/.*)?/,
+  externals: /^(k6(?!-)|https?\:\/\/)(\/.*)?/,
   // Generate map files for compiled scripts
   devtool: "source-map",
   stats: {
