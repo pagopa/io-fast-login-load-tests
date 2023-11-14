@@ -6,9 +6,12 @@
   "license": "MIT",
   "scripts": {
     "start": "dotenv -e .env k6 run dist/index.js",
+    "prebuild": "yarn generate",
     "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --config webpack.config.js --mode=production",
     "generate": "npm-run-all generate:*",
-    "generate:definitions-internal": "rimraf ./src/generated/definitions/internal && shx mkdir -p ./src/generated/definitions/internal && gen-api-models --api-spec https://raw.githubusercontent.com/pagopa/io-functions-fast-login/main/api/internal.yaml --no-strict --out-dir ./src/generated/definitions/internal "
+    "generate:fast-login": "rimraf ./src/generated/definitions/fast-login && shx mkdir -p ./src/generated/definitions/fast-login && gen-api-models --api-spec https://raw.githubusercontent.com/pagopa/io-functions-fast-login/main/api/internal.yaml --no-strict --out-dir ./src/generated/definitions/fast-login",
+    "generate:login":"rimraf ./src/generated/definitions/login && shx mkdir -p ./src/generated/definitions/login && gen-api-models --api-spec https://raw.githubusercontent.com/pagopa/io-backend/master/openapi/generated/api_public.yaml --no-strict --out-dir ./src/generated/definitions/login --request-types --response-decoders --client",
+    "generate:lollipop": "rimraf ./src/generated/definitions/lollipop && shx mkdir -p ./src/generated/definitions/lollipop && gen-api-models --api-spec https://raw.githubusercontent.com/pagopa/io-functions-lollipop/master/openapi/internal.yaml --no-strict --out-dir ./src/generated/definitions/lollipop --request-types --response-decoders --client"
   },
   "devDependencies": {
     "@babel/core": "7.13.16",
@@ -32,8 +35,12 @@
     "webpack-glob-entries": "^1.0.1"
   },
   "dependencies": {
+    "@mattrglobal/http-signatures": "^4.1.0",
     "@pagopa/ts-commons": "^12.3.0",
+    "date-fns": "^2.30.0",
     "fp-ts": "^2.16.1",
-    "io-ts": "^2.2.20"
+    "io-ts": "^2.2.20",
+    "jose": "^5.1.0",
+    "node-fetch": "^3.3.2"
   }
 }
