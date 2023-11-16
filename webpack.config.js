@@ -2,6 +2,8 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const GlobEntries = require('webpack-glob-entries');
+const webpack = require('webpack')
+
 
 module.exports = {
   mode: 'production',
@@ -13,17 +15,28 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    fallback: {
+      crypto: require.resolve("crypto-browserify"),
+      util: require.resolve("util/"),
+      stream: require.resolve("stream-browserify"),
+    }
   },
   module: {
     rules: [
       {
         test: /\.ts$/,
-        use: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ["@babel/env", "@babel/typescript"],
+            plugins: ['@babel/plugin-proposal-class-properties', "@babel/proposal-object-rest-spread", "@babel/plugin-transform-async-generator-functions"]
+          }
+        },
         exclude: /node_modules/,
       },
     ],
   },
-  target: 'es2022',
+  target: "es6",
   externals: /^(k6(?!-)|https?\:\/\/)(\/.*)?/,
   // Generate map files for compiled scripts
   devtool: "source-map",
@@ -39,6 +52,9 @@ module.exports = {
         from: path.resolve(__dirname, 'assets'), 
         noErrorOnMissing: true 
       }],
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
     }),
   ],
   optimization: {
