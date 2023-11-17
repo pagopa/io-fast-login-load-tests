@@ -4,8 +4,8 @@ import {
   algMap,
   createSignatureHeader,
 } from "@mattrglobal/http-signatures";
-import * as O from "fp-ts/Option";
 import * as jose from "jose";
+import * as E from "fp-ts/Either";
 
 export type createLollipopHeadersT = (input: {
   method?: string;
@@ -14,19 +14,19 @@ export type createLollipopHeadersT = (input: {
   nonce?: string;
   headers?: Record<string, unknown>;
   privateKeyJwk: jose.JWK;
-  publicKeyJwk: jose.JWK;
+  thumbprint: string;
 }) => Promise<
-  O.Option<{ digest?: string; signature: string; signatureInput: string }>
+  E.Either<
+    Error,
+    { digest?: string; signature: string; signatureInput: string }
+  >
 >;
 export const createLollipopHeaders: createLollipopHeadersT = async (input) => {
   const method = input?.method ?? "GET";
   const url = input.url;
   const alg = AlgorithmTypes["ecdsa-p256-sha256"];
   const sign = algMap[alg].sign(input.privateKeyJwk);
-  const keyid = `${await jose.calculateJwkThumbprint(
-    input.publicKeyJwk,
-    "sha256"
-  )}`;
+  const keyid = input.thumbprint;
   const lollipopHttpHeaders = {
     ["x-pagopa-lollipop-original-method"]: method,
     ["x-pagopa-lollipop-original-url"]: url,
@@ -48,5 +48,11 @@ export const createLollipopHeaders: createLollipopHeadersT = async (input) => {
   };
   const result = await createSignatureHeader(options);
 
-  return result.isOk() ? O.some(result.value) : O.none;
+  return result.isOk()
+    ? E.right(result.value)
+    : E.left(
+        new Error(
+          `Error generating the signature message: ${result.error.message}`
+        )
+      );
 };
