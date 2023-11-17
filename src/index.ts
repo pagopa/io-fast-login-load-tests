@@ -52,13 +52,15 @@ export const options = {
       timeUnit: "1s",
 
       // Pre-allocate VUs (concurrent users)
-      preAllocatedVUs: config.TEST_FISCAL_CODE.length,
+      preAllocatedVUs: keys.length,
     },
   },
 };
 
 const generateNonceDuration = new Trend("generate_nonce_duration");
 const refreshFastLoginDuration = new Trend("fast_login_duration");
+const refreshFastLoginWaiting = new Trend("fast_login_waiting");
+const sessionDuration = new Trend("get_session_duration");
 const scenarioDuration = new Trend("scenario_duration");
 
 export default async function() {
@@ -135,6 +137,7 @@ export default async function() {
     "POST Fast Login returns 200": (r) => r.status === 200,
   });
   refreshFastLoginDuration.add(refreshSession.timings.duration);
+  refreshFastLoginWaiting.add(refreshSession.timings.waiting);
   duration += refreshSession.timings.duration;
   const token = pipe(
     refreshSession.json(),
@@ -157,6 +160,7 @@ export default async function() {
   check(getSession, {
     "GET Get Session returns 200": (r) => r.status === 200,
   });
+  sessionDuration.add(getSession.timings.duration);
   duration += getSession.timings.duration;
   scenarioDuration.add(duration);
 }

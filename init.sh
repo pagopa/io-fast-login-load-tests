@@ -5,6 +5,7 @@ DATA_FILENAME=keys.json
 yarn build
 
 mkdir -p data
+echo "Generating keys with login ...";
 yarn -s data > $DATA_FOLDER/$DATA_FILENAME
 
 if [ $? -eq 0 ]
@@ -16,6 +17,7 @@ else
   exit 1
 fi
 
+echo "Starting signer service to generate lollipop signatures ...";
 yarn -s signer &
 ppid=$!
 sleep 5 # Wait the lollipop generator start before starting the load test

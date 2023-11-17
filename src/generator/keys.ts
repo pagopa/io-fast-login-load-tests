@@ -1,6 +1,7 @@
 import { pipe } from "fp-ts/lib/function";
 import { getConfigOrThrow } from "../utils/config";
 import * as TE from "fp-ts/TaskEither";
+import * as T from "fp-ts/Task";
 import * as ROA from "fp-ts/lib/ReadonlyArray";
 import { initNewLollipopKey } from "../utils/lollipop";
 import * as E from "fp-ts/Either";
@@ -12,15 +13,14 @@ const generateTestData = () => {
   return pipe(
     config.TEST_FISCAL_CODE as ReadonlyArray<FiscalCode>,
     ROA.map((fiscalCode) =>
-      TE.tryCatch(() => initNewLollipopKey(config)(fiscalCode), E.toError)
+      pipe(TE.tryCatch(() => initNewLollipopKey(config)(fiscalCode), E.toError))
     ),
-    ROA.sequence(TE.ApplicativeSeq),
-    TE.map((_) => console.log(JSON.stringify(_))),
+    ROA.sequence(T.ApplicativeSeq),
+    T.map(ROA.rights),
+    T.map((_) => {
+      console.log(JSON.stringify(_));
+    })
     //TE.chain(() => TE.left(new Error("Error"))), // TODO: Remove, added for failure test scenario
-    TE.mapLeft(() => {
-      throw new Error("Error generating the keys");
-    }),
-    TE.toUnion
   )();
 };
 

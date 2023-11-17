@@ -89,7 +89,9 @@ export const initNewLollipopKey = (config: IConfig) => async (
       )
     ),
     TE.getOrElse((err) => {
-      console.error(err);
+      console.error(
+        `Error registering or generating the key [${fiscalCode}][${err}]`
+      );
       throw err;
     })
   )();
