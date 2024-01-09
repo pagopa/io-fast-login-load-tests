@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "dotenv -e .env k6 run --http-debug=\"full\" dist/index.js",
-    "data": "dotenv -e .env ts-node ./src/generator/keys.ts",
+    "data": "dotenv -e .env ts-node ./src/generator/keys.ts > ./data/keys.json",
     "signer": "ts-node ./src/generator/signer.ts",
     "prebuild2": "yarn generate",
     "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --config webpack.config.js --mode=production",
