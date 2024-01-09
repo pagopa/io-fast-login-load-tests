@@ -5,6 +5,5 @@
 
     "@babel/proposal-object-rest-spread",
 
-    "@babel/plugin-transform-async-generator-functions"
   ]
 }
