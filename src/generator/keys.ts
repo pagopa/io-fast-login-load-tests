@@ -20,7 +20,6 @@ const generateTestData = () => {
     T.map((_) => {
       console.log(JSON.stringify(_));
     })
-    //TE.chain(() => TE.left(new Error("Error"))), // TODO: Remove, added for failure test scenario
   )();
 };
 
