@@ -1,0 +1,30 @@
+✓ GET Nonce returns 200
+✗ POST Signature returns 200
+↳  99% — ✓ 195587 / ✗ 1
+✓ POST Fast Login returns 200
+✓ GET Get Session returns 200
+
+checks.........................: 99.99% ✓ 782146     ✗ 1
+data_received..................: 776 MB 562 kB/s
+data_sent......................: 322 MB 233 kB/s
+fast_login_duration............: avg=634.227378 min=161.138  med=374.905  max=9062.906 p(90)=1382.393  p(95)=2008.8795
+fast_login_waiting.............: avg=634.152325 min=161.075  med=374.818  max=9062.723 p(90)=1382.3264 p(95)=2008.8105
+generate_nonce_duration........: avg=135.479429 min=73.117   med=106.122  max=4561.793 p(90)=206.5151  p(95)=280.6822
+get_session_duration...........: avg=128.997218 min=71.364   med=98.419   max=5772.937 p(90)=191.9845  p(95)=264.5165
+http_req_blocked...............: avg=1.43ms     min=1µs      med=3µs      max=1.13s    p(90)=4µs       p(95)=5µs
+http_req_connecting............: avg=449.22µs   min=0s       med=0s       max=237.25ms p(90)=0s        p(95)=0s
+http_req_duration..............: avg=225ms      min=80µs     med=102.56ms max=9.06s    p(90)=484.29ms  p(95)=860.48ms
+  { expected_response:true }...: avg=225ms      min=810µs    med=102.56ms max=9.06s    p(90)=484.29ms  p(95)=860.48ms
+http_req_failed................: 0.00%  ✓ 1          ✗ 782146
+http_req_receiving.............: avg=51.51µs    min=0s       med=45µs     max=13.4ms   p(90)=73µs      p(95)=91µs
+http_req_sending...............: avg=19.84µs    min=7µs      med=18µs     max=1.42ms   p(90)=25µs      p(95)=31µs
+http_req_tls_handshaking.......: avg=976.95µs   min=0s       med=0s       max=1.08s    p(90)=0s        p(95)=0s
+http_req_waiting...............: avg=224.93ms   min=65µs     med=102.48ms max=9.06s    p(90)=484.21ms  p(95)=860.42ms
+http_reqs......................: 782147 566.550688/s
+iteration_duration.............: avg=907.26ms   min=123.46ms med=644.91ms max=9.38s    p(90)=1.73s     p(95)=2.37s
+iterations.....................: 195477 141.594392/s
+scenario_duration..............: avg=898.710065 min=334.244  med=634.2805 max=9385.916 p(90)=1722.621  p(95)=2362.13125
+vus............................: 43     min=0        max=199
+
+running (23m00.5s), 000/199 VUs, 195477 complete and 133 interrupted iterations
+contacts ✓ [======================================] 000/199 VUs  23m0s
