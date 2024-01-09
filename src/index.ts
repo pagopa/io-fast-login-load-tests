@@ -96,7 +96,7 @@ export default async function() {
     url: config.IO_BACKEND_BASE_URL + "/api/v1/fast-login",
   };
   const signerResponse = http.post(
-    `http://backend.localhost:8001/signature-params`,
+    `http://localhost:8001/signature-params`,
     JSON.stringify(parameters),
     {
       headers: {
