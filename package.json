@@ -16,7 +16,7 @@
     "generate:lollipop": "rimraf ./src/generated/definitions/lollipop && shx mkdir -p ./src/generated/definitions/lollipop && gen-api-models --api-spec https://raw.githubusercontent.com/pagopa/io-functions-lollipop/master/openapi/internal.yaml --no-strict --out-dir ./src/generated/definitions/lollipop --request-types --response-decoders --client"
   },
   "devDependencies": {
-    "@babel/core": "7.13.16",
+    "@babel/core": "7.29.6",
     "@babel/plugin-proposal-class-properties": "7.13.0",
     "@babel/plugin-proposal-object-rest-spread": "7.13.8",
     "@babel/preset-env": "^7.23.3",
